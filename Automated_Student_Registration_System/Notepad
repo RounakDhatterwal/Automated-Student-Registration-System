@@ -1,0 +1,36 @@
+   TABLES
+   
+create table student
+(
+student_id int primary key auto_increment,
+firstname varchar(12) not null,
+lastname varchar(12) not null,
+address varchar(35) not null,
+mobile_number int unique not null,
+email varchar(40) unique not null,
+password varchar(10) not null,
+course_id int not null,
+FOREIGN KEY (course_id) REFERENCES course(course_id),
+);
+
+create table course
+(
+course_id int primary key auto_increment,
+course_name varchar(20) not null,
+course_fee int not null,
+course_duration int not null,
+course_description varchar(200) not null,
+); 
+
+create table batch
+(
+batch_id int primary key auto_increment,
+batch_name varchar(20) not null,
+batch_startdate varchar(15) not null,
+batch_enddate varchar(15) not null,
+batch_capacity int default 50,
+batch_strength int not null,
+);
+
+
+
