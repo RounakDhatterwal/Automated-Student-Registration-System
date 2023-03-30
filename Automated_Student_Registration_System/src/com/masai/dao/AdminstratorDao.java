@@ -2,27 +2,43 @@ package com.masai.dao;
 
 import java.util.List;
 
+import com.masai.exception.AdministratorException;
+import com.masai.exception.BatchException;
+import com.masai.exception.CourseException;
+import com.masai.exception.StudentException;
 import com.masai.model.Batch;
 import com.masai.model.Course;
+import com.masai.model.Student;
 
 public interface AdminstratorDao {
-	public String login(String username, String password);
 	
-	public String addnewCourse(Course course);
+	// 1. Login his account
+	public String login(String username, String password)throws AdministratorException;
 	
-	public Course searchCourseDetails(String course_name, int time, int fee);
+	// 2. Add new Courses
+	public String addnewCourse(Course course)throws CourseException;
 	
-	public String updateCourseDetails(int courseID);
+	// 3. Search for information about courses (by course name, duration range and fee range)
+	public List<Course> searchCourseDetails(String course_name, int time, int fee)throws CourseException;
 	
-	public Batch createBatchUnderACoruse(Batch batch);
+	// 4. Update details of course
+	public String updateCourseDetails(int courseID)throws CourseException;
 	
-	public String searchBatch(String batch_name, String start_date, String end_date);
+	// 5. Create a Batch under a course.
+	public Batch createBatchUnderACoruse(Batch batch)throws CourseException,BatchException;
 	
-	public String updateBatch(int batchid);
+	// 6. Search for information about batches (by batch name, by start date range, by end date
+	//    range, by start and end date. By course name of the batch)
+	public String searchBatch(String batch_name, String start_date, String end_date)throws BatchException;
 	
-	public String viewStudentDetails(int student_id);
+	// 6. Update details of batch
+	public String updateBatch(int batchid)throws BatchException;
 	
-	public List<String> studentListofBatch(int batch_id);
+	// 7. View student details
+	public List<Student> viewStudentDetails(int student_id)throws StudentException;
 	
-	public String getReport(int course_id, int batch_id);
+	// 8. View the student list of a batch
+	public List<String> studentListofBatch(int batch_id)throws StudentException;
+	
+//	public String getReport(int course_id, int batch_id);
 }
