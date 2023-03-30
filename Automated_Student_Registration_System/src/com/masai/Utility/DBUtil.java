@@ -18,7 +18,7 @@ public class DBUtil {
 		password = rs.getString("password");
 	}
 	
-	static Connection provideConnection() {
+	public static Connection provideConnection() {
 		Connection con = null;
 		
 		try {
