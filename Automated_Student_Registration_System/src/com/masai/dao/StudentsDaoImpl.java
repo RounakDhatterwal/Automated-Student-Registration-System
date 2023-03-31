@@ -41,6 +41,18 @@ public class StudentsDaoImpl implements StudentsDao{
 
 		return message;
 	}
+	
+	
+	@Override
+	public String update(String firstname, String lastname, String address, String mobile_number, String email,
+			String password) {
+		String message = "Data not updated sucessfully";
+		
+		
+		
+		
+		return message;
+	}
 
 	@Override
 	public String signIn(String username, String password) throws StudentException {
@@ -94,7 +106,7 @@ public class StudentsDaoImpl implements StudentsDao{
 			PreparedStatement ps = con.prepareStatement("select * from batch");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				list.add(new Batch(rs.getString("name"), rs.getDate("startdate"), rs.getDate("enddate"), rs.getString("capacity"), rs.getString("strength")));
+				list.add(new Batch(rs.getString("name"), rs.getDate("startdate"), rs.getDate("enddate"), rs.getString("capacity"), rs.getInt("course_id")));
 			}
 
 		} catch (SQLException e) {
@@ -138,8 +150,6 @@ public class StudentsDaoImpl implements StudentsDao{
 		
 		return message;
 	}
-
-
 
 
 }
