@@ -18,6 +18,9 @@ public interface StudentsDao {
 	// 2. Sign in with an email and password
 	public String signIn(String username, String password) throws StudentException;
 	
+	//3. Can update personal details
+	public String update(String firstname, String lastname, String address, String mobile_number, String email, String password);
+	
 	// 5. Can see all the available course list
 	public List<Course> available_course_list()throws CourseException;
 	

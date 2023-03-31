@@ -17,6 +17,9 @@ public class Student {
 		this.email = email;
 		this.password = password;
 	}
+	public Student() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getFirstname() {
 		return firstname;
 	}

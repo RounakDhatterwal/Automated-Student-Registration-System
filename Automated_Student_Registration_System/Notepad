@@ -39,9 +39,9 @@ FOREIGN KEY (course_id) REFERENCES course(course_id);
 create table student_course
 (
 student_id int,
-course_id int,
+batch_id int,
 FOREIGN KEY (student_id) REFERENCES student(student_id),
-FOREIGN KEY (course_id) REFERENCES course(course_id)
+FOREIGN KEY (batch_id) REFERENCES course(batch_id)
 );
 
 
