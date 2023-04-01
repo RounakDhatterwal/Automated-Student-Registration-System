@@ -19,7 +19,10 @@ public interface StudentsDao {
 	public String signIn(String username, String password) throws StudentException;
 	
 	//3. Can update personal details
-	public String update(String firstname, String lastname, String address, String mobile_number, String email, String password);
+	public String updateStudent(String firstname, String lastname, String address, String mobile_number, String email, String password);
+	
+	//4. 4. Can change the password. An old password has to be entered for changing the password
+	public String changePassword(String password);
 	
 	// 5. Can see all the available course list
 	public List<Course> available_course_list()throws CourseException;
@@ -31,6 +34,6 @@ public interface StudentsDao {
 	public String registerIntoCourseAndBatch()throws CourseException,BatchException;
 	
 	// 9. Delete an account		
-	public String deleteStudentAccount() throws StudentException;
+	public String deleteStudentAccount(String firstname) throws StudentException;
 	
 }

@@ -4,7 +4,7 @@ public class CourseException extends Exception{
 	public CourseException() {
 		// TODO Auto-generated constructor stub
 	}
-	CourseException(String message){
+	public CourseException(String message){
 		super(message);
 	}
 }

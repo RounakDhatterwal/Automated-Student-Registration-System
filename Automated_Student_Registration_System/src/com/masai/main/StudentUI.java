@@ -3,7 +3,7 @@ package com.masai.main;
 import java.util.Scanner;
 
 public class StudentUI {
-	public static void studentUI() {
+	public static void studentUI() throws Exception {
 		System.out.println("1. Update personal details");
 		System.out.println("2. Change password");
 		System.out.println("3. All available course list");
@@ -17,32 +17,25 @@ public class StudentUI {
 		
 		switch(a) {
 		case 1 :
-			
-			
+			UserInterFace.updateStudent();
 			break;
 		case 2 :
-			
-			
+			UserInterFace.changePassword();
 			break;
 		case 3 :
-			
-			
+			UserInterFace.courseList();
 			break;
 		case 4 :
-			
-			
+			UserInterFace.allBatchList();;
 			break;
 		case 5 :
 			
-			
 			break;
 		case 6 :
-			
-			
+			UI.ui();
 			break;
 		case 7 :
-			
-			
+			UserInterFace.deleteStudentaccount();
 			break;
 		default : System.out.println("Enter correct option");
 		

@@ -44,8 +44,8 @@ public class Course {
 	}
 	@Override
 	public String toString() {
-		return "Course [name=" + name + ", fee=" + fee + ", duration=" + duration + ", description="
-				+ description + "]";
+		return "Course_name=" + name + ", fee=" + fee + ", duration=" + duration + ", description="
+				+ description ;
 	}
 	
 }

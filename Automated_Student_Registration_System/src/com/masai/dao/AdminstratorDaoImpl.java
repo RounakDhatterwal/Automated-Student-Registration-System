@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,14 +77,16 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 				co.setDescription(rs.getString("course_description"));
 				list.add(co);
 			}
+			if(list.size()==0) throw new CourseException("No Course Found");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CourseException();
+			throw new CourseException(e.getMessage());
 		}
 		
 		return list;
 	}
+	
+	
 
 	@Override
 	public String updateCourseDetails(int courseID, String name, int fee, int duration, String description) throws CourseException {
@@ -119,11 +122,16 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 			
 			PreparedStatement ps = con.prepareStatement("insert into batch (batch_name, batch_startdate, batch_enddate, batch_capacity, course_id) values(?,?,?,?,?)");
 			ps.setString(1, batch.getName());
-			ps.setDate(2, (Date) batch.getStartdate());
-			ps.setDate(3, (Date) batch.getEnddate());
-			ps.setString(4, batch.getCapacity());
+			ps.setDate(2, Date.valueOf(batch.getStartdate()));
+			ps.setDate(3, Date.valueOf(batch.getEnddate()));
+			ps.setInt(4, batch.getCapacity());
 			ps.setInt(5, batch.getCourse_id());
 			
+			int row  = ps.executeUpdate();
+//			if(row > 0) {
+//				
+//			}
+//			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new BatchException();

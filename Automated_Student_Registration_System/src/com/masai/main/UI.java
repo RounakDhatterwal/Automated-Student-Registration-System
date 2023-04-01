@@ -7,6 +7,7 @@ import com.masai.model.Student;
 public class UI {
 
 	public static void ui() throws Exception {
+		System.out.println();
 		System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ");										
 		System.out.println("! Enter 1 for Login as Adminstrator  ! ");
 		System.out.println("! Enter 2 for Login as Student       ! ");
@@ -14,7 +15,13 @@ public class UI {
 		System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ");
 		
 		Scanner sc = new Scanner(System.in);
-		int a = Integer.parseInt( sc.nextLine());
+		int a = 0;
+		try {
+			a = Integer.parseInt( sc.nextLine());
+		} catch (Exception e) {
+			System.out.println("Enter correct option");
+		}
+		
 		
 		switch(a) {
 		case 1 :
@@ -33,6 +40,9 @@ public class UI {
 				System.out.println("------------------------");	
 				
 				AdminstratorUI.adminUI();
+			}else {
+				System.out.println("Please Enter correct credentials");
+				UI.ui();
 			}
 			
 			break;
