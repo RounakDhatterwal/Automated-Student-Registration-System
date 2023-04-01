@@ -5,12 +5,12 @@ import java.util.Date;
 
 public class Batch {
 	private String name;
-	private Date startdate;
-	private Date enddate;
-	private String capacity;
+	private LocalDate startdate;
+	private LocalDate enddate;
+	private int capacity;
 	private String Strength;
 	private int course_id;
-	public Batch(String name, Date startdate, Date enddate, String capacity, int course_id) {
+	public Batch(String name, LocalDate startdate, LocalDate enddate, int capacity, int course_id) {
 		super();
 		this.name = name;
 		this.startdate = startdate;
@@ -27,23 +27,23 @@ public class Batch {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getStartdate() {
+	public LocalDate getStartdate() {
 		return startdate;
 	}
-	public void setStartdate(Date startdate) {
+	public void setStartdate(LocalDate startdate) {
 		this.startdate = startdate;
 	}
-	public Date getEnddate() {
+	public LocalDate getEnddate() {
 		return enddate;
 	}
-	public void setEnddate(Date enddate) {
+	public void setEnddate(LocalDate enddate) {
 		this.enddate = enddate;
 	}
-	public String getCapacity() {
+	public int getCapacity() {
 		return capacity;
 	}
-	public void setCapacity(String capacity) {
-		this.capacity = capacity;
+	public void setCapacity(int capacity2) {
+		this.capacity = capacity2;
 	}
 	public String getStrength() {
 		return Strength;

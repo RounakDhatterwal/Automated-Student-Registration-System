@@ -1,11 +1,14 @@
 package com.masai.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.masai.Utility.DBUtil;
 import com.masai.exception.BatchException;
 import com.masai.exception.CourseException;
@@ -44,11 +47,36 @@ public class StudentsDaoImpl implements StudentsDao{
 	
 	
 	@Override
-	public String update(String firstname, String lastname, String address, String mobile_number, String email,
+	public String updateStudent(String firstname, String lastname, String address, String mobile_number, String email,
 			String password) {
 		String message = "Data not updated sucessfully";
+		Student student = new Student();
+		student.setFirstname(firstname);
+		student.setLastname(lastname);
+		student.setAddress(address);
+		student.setMobile_number(mobile_number);
+		student.setEmail(email);
+		student.setPassword(password);
 		
-		
+		try (Connection con =DBUtil.provideConnection()){
+			
+			PreparedStatement ps = con.prepareStatement("update student set firstname = ? , lastname = ? , address = ? , mobile_number = ? , email = ? , password = ? WHERE firstname = ? AND lastname = ?");
+			ps.setString(1, student.getFirstname());
+			ps.setString(2, student.getLastname());
+			ps.setString(3, student.getAddress());
+			ps.setString(4, student.getMobile_number());
+			ps.setString(5, student.getEmail());
+			ps.setString(6, student.getPassword());
+			ps.setString(7, student.getFirstname());
+			ps.setString(8, student.getLastname());
+			
+			int x = ps.executeUpdate();
+			if(x>0) {
+				message = "Student Added Sucessfully";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		
 		return message;
@@ -77,6 +105,26 @@ public class StudentsDaoImpl implements StudentsDao{
 		
 		return message;
 	}
+	
+	@Override
+	public String changePassword(String password) {
+		String message  = "Password not updated sucessfully";
+		
+		try (Connection con = DBUtil.provideConnection()){
+			
+			PreparedStatement ps = con.prepareStatement("update student set password = ? WHERE password  = ? " );
+			int x = ps.executeUpdate();
+			if(x>0) {
+				message = "Password updated sucessfully";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return message;
+		
+	}
+	
 
 	@Override
 	public List<Course> available_course_list() throws CourseException {
@@ -106,7 +154,14 @@ public class StudentsDaoImpl implements StudentsDao{
 			PreparedStatement ps = con.prepareStatement("select * from batch");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				list.add(new Batch(rs.getString("name"), rs.getDate("startdate"), rs.getDate("enddate"), rs.getString("capacity"), rs.getInt("course_id")));
+				
+				Batch ba = new Batch();
+				ba.setName(rs.getString(1));
+//				ba.setStartdate(Date.valueOf(rs.getDate(2)));
+				
+				
+				
+//				list.add(new Batch(rs.getString("name"), rs.getDate(Date.valueOf("startdate")), rs.getDate("enddate"), rs.getString("capacity"), rs.getInt("course_id")));
 			}
 
 		} catch (SQLException e) {
@@ -134,12 +189,13 @@ public class StudentsDaoImpl implements StudentsDao{
 	}
 
 	@Override
-	public String deleteStudentAccount() throws StudentException {
+	public String deleteStudentAccount(String firstname) throws StudentException {
 		String message = "Student deleted sucessfully";
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
-			PreparedStatement ps = con.prepareStatement("update student set is_deleted = 1");
+			PreparedStatement ps = con.prepareStatement("update student set is_deleted = 1 WHERE firstname = ?");
+			ps.setString(1, firstname);
 			int x = ps.executeUpdate();
 			if(x>0) {
 				message = "Student removed successfully";
