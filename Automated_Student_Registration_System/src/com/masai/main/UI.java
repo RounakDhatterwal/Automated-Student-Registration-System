@@ -5,6 +5,9 @@ import java.util.Scanner;
 import com.masai.model.Student;
 
 public class UI {
+	
+	
+	public static int student_id ;
 
 	public static void ui() throws Exception {
 		System.out.println();
@@ -55,8 +58,11 @@ public class UI {
 			String Student_username = sc.next();
 			System.out.println("Enter Your Password : ");
 			String Student_password = sc.next();
-			if(true) {
+			if(UserInterFace.validateStudent(Student_username, Student_password)) {
 				StudentUI.studentUI();
+			}else {
+				System.out.println("Wrong Credentials. Please try again");
+				UI.ui();
 			}
 			
 			
@@ -68,7 +74,7 @@ public class UI {
 			System.out.println("-----------------------------");
 			
 			UserInterFace.addStudnets();
-			
+			UI.ui();
 			break;	
 		default : 
 			System.out.println("Please Enter Correct Option");

@@ -1,6 +1,6 @@
 package com.masai.dao;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.masai.exception.AdministratorException;
@@ -8,6 +8,7 @@ import com.masai.exception.BatchException;
 import com.masai.exception.CourseException;
 import com.masai.exception.StudentException;
 import com.masai.model.Batch;
+import com.masai.model.Consolidate;
 import com.masai.model.Course;
 import com.masai.model.Student;
 
@@ -30,10 +31,10 @@ public interface AdminstratorDao {
 	
 	// 6. Search for information about batches (by batch name, by start date range, by end date
 	//    range, by start and end date. By course name of the batch)
-	public Batch searchBatch(String batch_name, String start_date, String end_date)throws BatchException;
+	public List<Batch> searchBatch(String batch_name, String start_date, String end_date)throws BatchException;
 	
 	// 6. Update details of batch
-	public String updateBatch(int batch_id, String batch_name, Date sdate, Date edate, String capacity, int course_id)throws BatchException;
+	public String updateBatch(int batch_id, String batch_name, String sdate, String edate, int capacity, int course_id)throws BatchException;
 	
 	// 7. View student details
 	public List<Student> viewStudentDetails(int student_id)throws StudentException;
@@ -42,5 +43,5 @@ public interface AdminstratorDao {
 	public List<String> studentListofBatch(int batch_id)throws StudentException;
 
 
-//	public String getReport(int course_id, int batch_id);
+	public List<Consolidate> getReport();
 }

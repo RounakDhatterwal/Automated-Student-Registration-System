@@ -6,7 +6,7 @@ student_id int primary key auto_increment,
 firstname varchar(12) not null,
 lastname varchar(12) not null,
 address varchar(35) not null,
-mobile_number int unique not null,
+mobile_number varcahr(10) unique not null,
 email varchar(40) unique not null,
 password varchar(10) not null,
 is_deleted int default 0
@@ -37,12 +37,30 @@ FOREIGN KEY (course_id) REFERENCES course(course_id)
 );
 
 
-CREATE TABLE student_course (
+CREATE TABLE student_batch (
     student_id INT,
     batch_id INT,
     FOREIGN KEY (student_id) REFERENCES student(student_id),
     FOREIGN KEY (batch_id) REFERENCES batch(batch_id)
 );
+
+
+select c.course_id,count(b.batch_id),count(st.student_id) from course c INNER JOIN  batch b ON c.course_id = b.course_id 
+INNER JOIN  student_batch sc ON b.batch_id = sc.batch_id INNER JOIN student st ON sc.student_id = st.student_id group by c.course_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

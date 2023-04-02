@@ -22,7 +22,7 @@ public interface StudentsDao {
 	public String updateStudent(String firstname, String lastname, String address, String mobile_number, String email, String password);
 	
 	//4. 4. Can change the password. An old password has to be entered for changing the password
-	public String changePassword(String password);
+	public String changePassword(String password, String newpassword);
 	
 	// 5. Can see all the available course list
 	public List<Course> available_course_list()throws CourseException;
@@ -31,7 +31,7 @@ public interface StudentsDao {
 	public List<Batch> available_batches_list()throws BatchException;
 	
 	// Register himself in a course and select any batch for himself from the list of upcoming batches for this course
-	public String registerIntoCourseAndBatch()throws CourseException,BatchException;
+	public String enrollStudentInCourse(int roll, int cid) throws StudentException, CourseException;
 	
 	// 9. Delete an account		
 	public String deleteStudentAccount(String firstname) throws StudentException;
