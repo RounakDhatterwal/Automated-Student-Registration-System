@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class StudentUI {
 	public static void studentUI() throws Exception {
+		System.out.println("---------------------->");
+		System.out.println("Welcome - " + UserInterFace.showStudentName(UI.student_id));
 		System.out.println("1. Update personal details");
 		System.out.println("2. Change password");
 		System.out.println("3. All available course list");
@@ -26,16 +28,19 @@ public class StudentUI {
 			UserInterFace.courseList();
 			break;
 		case 4 :
-			UserInterFace.allBatchList();;
+			UserInterFace.allBatchList();
+			StudentUI.studentUI();
 			break;
 		case 5 :
-			
+			UserInterFace.registerInCourse();
+			StudentUI.studentUI();
 			break;
 		case 6 :
 			UI.ui();
 			break;
 		case 7 :
 			UserInterFace.deleteStudentaccount();
+			UI.ui();
 			break;
 		default : System.out.println("Enter correct option");
 		

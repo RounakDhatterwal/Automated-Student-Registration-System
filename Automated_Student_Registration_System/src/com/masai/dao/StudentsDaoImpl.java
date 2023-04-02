@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ public class StudentsDaoImpl implements StudentsDao{
 
 	@Override
 	public String addStudents(Student student) throws StudentException {
-		String message = "Student not added correctly";
+		String message = "Student data not entered correctly";
 		
 		try (Connection con =DBUtil.provideConnection()){
 			
@@ -38,8 +40,7 @@ public class StudentsDaoImpl implements StudentsDao{
 				message = "Student Added Sucessfully";
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new StudentException();
+			throw new StudentException(message);
 		}
 
 		return message;
@@ -72,10 +73,10 @@ public class StudentsDaoImpl implements StudentsDao{
 			
 			int x = ps.executeUpdate();
 			if(x>0) {
-				message = "Student Added Sucessfully";
+				message = "Student Updated Sucessfully";
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
 		
@@ -107,18 +108,20 @@ public class StudentsDaoImpl implements StudentsDao{
 	}
 	
 	@Override
-	public String changePassword(String password) {
+	public String changePassword(String password, String newpassword) {
 		String message  = "Password not updated sucessfully";
 		
 		try (Connection con = DBUtil.provideConnection()){
 			
 			PreparedStatement ps = con.prepareStatement("update student set password = ? WHERE password  = ? " );
+			ps.setString(1, newpassword);
+			ps.setString(2, password);
 			int x = ps.executeUpdate();
 			if(x>0) {
 				message = "Password updated sucessfully";
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
 		return message;
@@ -134,7 +137,7 @@ public class StudentsDaoImpl implements StudentsDao{
 			PreparedStatement ps = con.prepareStatement("select * from course");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				list.add(new Course(rs.getString("name"), rs.getInt("fee"), rs.getInt("duration"), rs.getString("description")));
+				list.add(new Course(rs.getString("course_name"), rs.getInt("course_fee"), rs.getInt("course_duration"), rs.getString("course_description")));
 			}
 
 		} catch (SQLException e) {
@@ -153,15 +156,11 @@ public class StudentsDaoImpl implements StudentsDao{
 			
 			PreparedStatement ps = con.prepareStatement("select * from batch");
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while(rs.next()) {			
 				
-				Batch ba = new Batch();
-				ba.setName(rs.getString(1));
-//				ba.setStartdate(Date.valueOf(rs.getDate(2)));
+				DateFormat DF = new SimpleDateFormat("yyyy/MM/dd");
 				
-				
-				
-//				list.add(new Batch(rs.getString("name"), rs.getDate(Date.valueOf("startdate")), rs.getDate("enddate"), rs.getString("capacity"), rs.getInt("course_id")));
+				list.add(new Batch(rs.getString("batch_name"), DF.format(rs.getDate("batch_startdate")), DF.format(rs.getDate("batch_enddate")), rs.getInt("batch_capacity"), rs.getString("batch_Strength") , rs.getInt("course_id")));
 			}
 
 		} catch (SQLException e) {
@@ -170,22 +169,6 @@ public class StudentsDaoImpl implements StudentsDao{
 		}
 		
 		return list;
-	}
-
-	@Override
-	public String registerIntoCourseAndBatch() throws CourseException, BatchException {
-		String message = "Unable to register into course and batch";
-		
-		try (Connection con =  DBUtil.provideConnection()){
-			
-			con.prepareStatement("insert into batch ");
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new CourseException();
-		}
-		
-		return message;
 	}
 
 	@Override
@@ -201,11 +184,67 @@ public class StudentsDaoImpl implements StudentsDao{
 				message = "Student removed successfully";
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e.getMessage());
 		}
 		
 		return message;
 	}
 
+	@Override
+	public String enrollStudentInCourse(int roll, int cid) throws StudentException, CourseException {
+		
+		String message = "Not Enrolled...!";
+		
+		try (Connection conn = DBUtil.provideConnection()){
+			
+			PreparedStatement ps1 = conn.prepareStatement("select * from student where student_id = ?");
+			
+			ps1.setInt(1, roll);
+			
+			ResultSet rs1 = ps1.executeQuery();
+			
+			if(rs1.next()) {
+				
+				PreparedStatement ps2 = conn.prepareStatement("select * from batch where batch_id = ?");
+				
+				ps2.setInt(1, cid);
+				
+				ResultSet rs2 = ps2.executeQuery();
+				
+				
+				if(rs2.next()) {
+					
+					PreparedStatement ps3 = conn.prepareStatement("insert into student_batch values (?,?)");
+					
+					ps3.setInt(1, roll);
+					ps3.setInt(2, cid);
+					
+					int x = ps3.executeUpdate();
+					
+					if(x > 0) {
+						
+						message = "Student Enrolled Successfully ";
+						
+					}		
+				}
+				else
+					throw new CourseException("course not found with this cid :" + cid);
+	
+			}
+			else
+				throw new StudentException("Student does not exist with this roll :" + roll);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new StudentException(e.getMessage());
+		}
 
+		return message;
+	}
+	
+	
 }
+
+
+

@@ -1,11 +1,17 @@
 package com.masai.main;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import com.masai.Utility.DBUtil;
 import com.masai.dao.AdminstratorDao;
 import com.masai.dao.AdminstratorDaoImpl;
 import com.masai.dao.StudentsDao;
@@ -14,6 +20,7 @@ import com.masai.exception.BatchException;
 import com.masai.exception.CourseException;
 import com.masai.exception.StudentException;
 import com.masai.model.Batch;
+import com.masai.model.Consolidate;
 import com.masai.model.Course;
 import com.masai.model.Student;
 
@@ -42,12 +49,11 @@ public class UserInterFace {
 		
 		Student student = new Student(firstname, lastname, address, mobile_number, email, password);
 		
-		String message = null;
+		String message = "Student not added successfully";
 		try {
 			message = dao.addStudents(student);
 		} catch (StudentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		System.out.println(message);
 	}
@@ -146,17 +152,17 @@ public class UserInterFace {
 		System.out.println("Enter Updated Course name");
 		String name = sc.nextLine();
 		System.out.println("Enter Updated fee");
-		int fee = sc.nextInt() ;
+		int fee = Integer.parseInt(sc.nextLine());
 		System.out.println("Enter Updated duration");
-		int duration = sc.nextInt() ;
+		int duration = Integer.parseInt(sc.nextLine());
 		System.out.println("Enter Updated description");
 		String description = sc.nextLine();
 		
 		AdminstratorDao dao = new AdminstratorDaoImpl();
 		try {
-			dao.updateCourseDetails(id, name, fee, duration, description);
+			String message = dao.updateCourseDetails(id, name, fee, duration, description);
+			System.out.println(message);
 		} catch (Exception e) {
-			
 			System.out.println(e.getMessage());
 //			UserInterFace.updateCourseDetails();
 		}
@@ -188,8 +194,8 @@ public class UserInterFace {
 		try {
 			Batch batch = new Batch();
 			batch.setName(name);
-			batch.setStartdate(LocalDate.parse(startdate));
-			batch.setEnddate(LocalDate.parse(enddate));
+			batch.setStartdate((startdate));
+			batch.setEnddate((enddate));
 			batch.setCapacity(capacity);
 			batch.setCourse_id(course_id);
 			
@@ -197,54 +203,63 @@ public class UserInterFace {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println("Batch created sucessfully");
 	}
 	//----------------------------------------------------------------------------
 //																	5-> Search information about batches
 	
 	public static void searchBatch() throws Exception {
 		String name = null;
-		Date startdate = null;
-		Date enddate = null;
+		String startdate = null;
+		String enddate = null;
 
         Scanner sc = new Scanner(System.in);
 		System.out.println("1. Search by name");
-		System.out.println("2. Search by course ID");
-		System.out.println("3. Search by course Fee");
+		System.out.println("2. Search by startdate");
+		System.out.println("3. Search by enddate");
 		int choice = Integer.parseInt(sc.nextLine());
 		if(choice == 1) {
 			System.out.println("Enter batch name");
 			name = sc.nextLine();
 			AdminstratorDao dao = new AdminstratorDaoImpl();
 			try {
-				dao.searchBatch(name, null, null);
+				List<Batch> list = dao.searchBatch(name, null, null);
+				list.forEach(u -> {
+					System.out.println(u);
+				});
 			} catch (BatchException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getMessage());
+				UserInterFace.searchBatch();
 			}
 		}else if(choice == 2) {
 			System.out.println("Enter batch startdate (in the format YYYY/MM/DD )");
 			String sdate = sc.next();
 			SimpleDateFormat sformatter = new SimpleDateFormat("YYYY/MM/DD");
-	        startdate = sformatter.parse(sdate);
+	        startdate = sdate;
 			AdminstratorDao dao = new AdminstratorDaoImpl();
 			try {
-				dao.searchBatch(name, sdate, null);
+				List<Batch> list = dao.searchBatch(name, sdate, null);
+				list.forEach(u -> {
+					System.out.println(u);
+				});
 			} catch (BatchException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getMessage());
+				UserInterFace.searchBatch();
 			}
 		}else if(choice == 3) {
 			System.out.println("Enter batch enddate (in the format YYYY/MM/DD )");
 	        String edate = sc.next();
 	        SimpleDateFormat eformatter = new SimpleDateFormat("YYYY/MM/DD");
-	        enddate = eformatter.parse(edate);
+	        enddate = (edate);
 			AdminstratorDao dao = new AdminstratorDaoImpl();
 			try {
-				dao.searchBatch(name, null, edate);
+				List<Batch> list = dao.searchBatch(name, null, edate);
+				list.forEach(u -> {
+					System.out.println(u);
+				});
 			} catch (BatchException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getMessage());
+				UserInterFace.searchBatch();
 			}
 		}else {
 			System.out.println("Please Enter Correct Choice");
@@ -257,38 +272,42 @@ public class UserInterFace {
 	
 	public static void updateBatch() throws Exception {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter Batch name : ");
+		System.out.println("Enter Batch id : ");
 		int id = sc.nextInt();
 		System.out.println("Enter Batch name : ");
-		String name = sc.nextLine();
+		String name = sc.next();
 		
 		System.out.println("Enter Batch Start Date (in the format YYYY/MM/DD ): ");
-		String startdate = sc.nextLine();
+		String startdate = sc.next();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate sdate = LocalDate.parse(startdate, formatter);
 //		SimpleDateFormat sformatter = new SimpleDateFormat("YYYY/MM/DD");
 //        Date sdate = sformatter.parse(startdate);
 //        
 		System.out.println("Enter Batch End Date (in the format YYYY/MM/DD ): ");
-		String enddate = sc.nextLine();
+		String enddate = sc.next();
 //		SimpleDateFormat eformatter = new SimpleDateFormat("YYYY/MM/DD");
-//        Date edate = eformatter.parse(enddate);
+		DateTimeFormatter eformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate edate = LocalDate.parse(enddate, eformatter);
         
 		System.out.println("Enter Batch capacity : ");
-	    int capacity = Integer.parseInt(sc.nextLine());
+	    int capacity = sc.nextInt();
 		System.out.println("Enter Batch course_id : ");
-		int course_id = Integer.parseInt(sc.nextLine());
+		int course_id = sc.nextInt();
 		
 		AdminstratorDao dao = new AdminstratorDaoImpl();
 		try {
 			Batch batch = new Batch();
 			batch.setName(name);
-			batch.setStartdate(LocalDate.parse(startdate));
-			batch.setEnddate(LocalDate.parse(enddate));
+			batch.setStartdate(startdate);
+			batch.setEnddate(enddate);
 			batch.setCapacity(capacity);
 			batch.setCourse_id(course_id);
 			
-//			dao.updateBatch(id, name, sdate, edate, capacity, course_id);
+			String m = dao.updateBatch(id, batch.getName(), batch.getStartdate(), batch.getEnddate(), batch.getCapacity(), batch.getCourse_id());
+			System.out.println(m);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -302,7 +321,10 @@ public class UserInterFace {
 		int id = sc.nextInt();
 		AdminstratorDao dao = new AdminstratorDaoImpl();
 		try {
-			dao.viewStudentDetails(id);
+			List<Student> list = (dao.viewStudentDetails(id));
+			list.forEach(e -> {
+				System.out.println(e);
+			});
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -319,9 +341,12 @@ public class UserInterFace {
 		int id = sc.nextInt();
 		AdminstratorDao dao = new AdminstratorDaoImpl();
 		try {
-			dao.studentListofBatch(id);
+			List<String> list = dao.studentListofBatch(id);
+			list.forEach(o -> {
+				System.out.println(o);
+			});
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -342,7 +367,13 @@ public class UserInterFace {
 //	}
 
 	public static void consolidatedReport() {
-		// TODO Auto-generated method stub
+		AdminstratorDao dao = new AdminstratorDaoImpl();
+		try {
+			List<Consolidate> list = dao.getReport();
+			list.forEach(System.out::println);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 	}
 	
@@ -367,25 +398,35 @@ public class UserInterFace {
 		StudentsDao dao = new StudentsDaoImpl();
 		
 		try {
-			dao.updateStudent(firstname, lastname, address, mobile_number, email, password);
+			String message = dao.updateStudent(firstname, lastname, address, mobile_number, email, password);
+			System.out.println(message);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	//----------------------------------------------------------------------------------------------
 	//                                             2. Change password
 	
 	public static void changePassword() {
+		System.out.println("Enter your old password to continue");
 		Scanner sc = new Scanner(System.in);
 		String pass = sc.next();
+		System.out.println("Enter new password");
+		String newpass = sc.next();
 		StudentsDao dao = new StudentsDaoImpl();
 		
 		try {
-			dao.changePassword(pass);
+			String message = dao.changePassword(pass,newpass);
+			System.out.println(message);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			StudentUI.studentUI();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	
@@ -397,11 +438,19 @@ public class UserInterFace {
 		StudentsDao dao = new StudentsDaoImpl();
 		
 		try {
-			dao.available_course_list();
+			List<Course> list = dao.available_course_list();
+			list.forEach(e -> {
+				System.out.println(e);
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		try {
+			StudentUI.studentUI();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	//---------------------------------------------------------------------------------------
 	//											4. All batches
@@ -410,22 +459,35 @@ public class UserInterFace {
 		StudentsDao dao = new StudentsDaoImpl();
 		
 		try {
-			dao.available_batches_list();
+			List<Batch> batch = dao.available_batches_list();
+			batch.forEach(a -> System.out.println(a));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		try {
+			StudentUI.studentUI();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	//---------------------------------------------------------------------------------------
 	//											5. Register in a course
 	
 	public static void registerInCourse() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter student_id :");
+		int id = sc.nextInt();
+		System.out.println("Enter batch_id");
+		int batch_id = sc.nextInt();
+		
 		StudentsDao dao = new StudentsDaoImpl();
 		
 		try {
-			dao.available_batches_list();
+			String message = dao.enrollStudentInCourse(id,batch_id);
+			System.out.println(message);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
 	}
@@ -438,19 +500,63 @@ public class UserInterFace {
 	public static void deleteStudentaccount() {
 		
 		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter your firstname to delete account");
 		String firstname = sc.next();
 		
 		StudentsDao dao = new StudentsDaoImpl();
 		
 		try {
-			dao.deleteStudentAccount(firstname);
+			String message = dao.deleteStudentAccount(firstname);
+			System.out.println(message);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
+	//=================================================================================================================================
 	
+	//           Extra Methods
+	
+	public static boolean validateStudent(String username ,String password) throws StudentException {
+		try (Connection con = DBUtil.provideConnection()){
+			PreparedStatement ps = con.prepareStatement("select * from student WHERE email = '"+username+"' AND password = '"+password+"' ");
+//			ps.setString(2, password);
+//			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				UI.student_id = rs.getInt("student_id");
+				return true;
+				
+			}else {
+				return false;
+			}
+
+		} catch (SQLException e) {
+			throw new StudentException();
+		}
+		
+	}
+	
+	public static String showStudentName(int id) throws StudentException {
+		
+		String name = "Hello";
+		
+		try (Connection con = DBUtil.provideConnection()){
+			PreparedStatement ps = con.prepareStatement("select firstname from student where student_id = ?");
+//			ps.setString(2, password);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				name = rs.getString("firstname");
+			}
+
+		} catch (SQLException e) {
+			throw new StudentException();
+		}
+		
+		return name;
+	}
 	
 	
 	

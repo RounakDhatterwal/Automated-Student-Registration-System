@@ -5,21 +5,24 @@ import java.util.Date;
 
 public class Batch {
 	private String name;
-	private LocalDate startdate;
-	private LocalDate enddate;
+	private String startdate;
+	private String enddate;
 	private int capacity;
 	private String Strength;
 	private int course_id;
-	public Batch(String name, LocalDate startdate, LocalDate enddate, int capacity, int course_id) {
+	
+	public Batch() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Batch(String name, String startdate, String enddate, int capacity, String strength, int course_id) {
 		super();
 		this.name = name;
 		this.startdate = startdate;
 		this.enddate = enddate;
 		this.capacity = capacity;
+		Strength = strength;
 		this.course_id = course_id;
-	}
-	public Batch() {
-		// TODO Auto-generated constructor stub
 	}
 	public String getName() {
 		return name;
@@ -27,23 +30,23 @@ public class Batch {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public LocalDate getStartdate() {
+	public String getStartdate() {
 		return startdate;
 	}
-	public void setStartdate(LocalDate startdate) {
+	public void setStartdate(String startdate) {
 		this.startdate = startdate;
 	}
-	public LocalDate getEnddate() {
+	public String getEnddate() {
 		return enddate;
 	}
-	public void setEnddate(LocalDate enddate) {
+	public void setEnddate(String enddate) {
 		this.enddate = enddate;
 	}
 	public int getCapacity() {
 		return capacity;
 	}
-	public void setCapacity(int capacity2) {
-		this.capacity = capacity2;
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
 	}
 	public String getStrength() {
 		return Strength;
@@ -62,6 +65,7 @@ public class Batch {
 		return "Batch [name=" + name + ", startdate=" + startdate + ", enddate=" + enddate + ", capacity=" + capacity
 				+ ", Strength=" + Strength + ", course_id=" + course_id + "]";
 	}
+	
 	
 	
 }
