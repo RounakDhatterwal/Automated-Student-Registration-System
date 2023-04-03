@@ -45,6 +45,7 @@ CREATE TABLE student_batch (
 );
 
 
+// consolidated SQL Query 
 select c.course_id,count(b.batch_id),count(st.student_id) from course c INNER JOIN  batch b ON c.course_id = b.course_id 
 INNER JOIN  student_batch sc ON b.batch_id = sc.batch_id INNER JOIN student st ON sc.student_id = st.student_id group by c.course_id;
 

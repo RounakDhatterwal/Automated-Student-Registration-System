@@ -43,7 +43,7 @@ public class Consolidate {
 
 	@Override
 	public String toString() {
-		return "Consolidate [st_id=" + st_id + ", bt_id=" + bt_id + ", c_id=" + c_id + "]";
+		return "Student ID = " + st_id + ", Batch ID = " + bt_id + ", Course ID = " + c_id + "";
 	}
 	
 	
