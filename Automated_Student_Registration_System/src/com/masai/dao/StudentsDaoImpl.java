@@ -37,7 +37,7 @@ public class StudentsDaoImpl implements StudentsDao{
 			
 			int x = ps.executeUpdate();
 			if(x>0) {
-				message = "Student Added Sucessfully";
+				message = "Student Added Sucessfully ✔";
 			}
 		} catch (SQLException e) {
 			throw new StudentException(message);

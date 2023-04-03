@@ -62,8 +62,8 @@ public class Batch {
 	}
 	@Override
 	public String toString() {
-		return "Batch [name=" + name + ", startdate=" + startdate + ", enddate=" + enddate + ", capacity=" + capacity
-				+ ", Strength=" + Strength + ", course_id=" + course_id + "]";
+		return "Batch Name = " + name + ", Startdate = " + startdate + ", Enddate = " + enddate + ", Capacity = " + capacity
+				+ ", Strength = " + Strength + ", Course ID = " + course_id + "";
 	}
 	
 	

@@ -6,7 +6,6 @@ import com.masai.model.Student;
 
 public class UI {
 	
-	
 	public static int student_id ;
 
 	public static void ui() throws Exception {
@@ -85,6 +84,9 @@ public class UI {
 	}
 	
 	public static void main(String[] args) throws Exception {
+		System.out.println("                                                   ✖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖✖");
+		System.out.println("                                                   |   Automated Student Registration System    |");
+		System.out.println("                                                   ✖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖✖");
 		ui();
 	}
 

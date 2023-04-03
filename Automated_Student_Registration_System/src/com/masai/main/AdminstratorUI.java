@@ -14,13 +14,14 @@ public class AdminstratorUI {
 		System.out.println("6-> Update details of batch");
 		System.out.println("7-> View student details");
 		System.out.println("8-> View the student list of a batch");
-		System.out.println("9-> For Consolidated Report");
+		System.out.println("9-> For Consolidated Batch Report");
 		System.out.println("0-> Logout his account");
-		System.out.println("»»»»»»»»»»»»»»»»»»»»»»»»");
+		System.out.println("💨💨💨💨💨💨💨💨💨💨💨💨💨💨");
+		System.out.println("➖➖➖➖➖➖➖➖➖➖➖➖➖");
 		System.out.print("Enter your choice : ");
 		Scanner sc = new Scanner(System.in);
 		int a = Integer.parseInt(sc.nextLine());
-		System.out.println("»»»»»»»»»»»»»»»»»»»»»»»»");
+		System.out.println("➖➖➖➖➖➖➖➖➖➖➖➖➖");
 		
 		switch(a) {
 		case 1 :

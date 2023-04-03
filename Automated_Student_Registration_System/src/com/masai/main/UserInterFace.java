@@ -49,13 +49,13 @@ public class UserInterFace {
 		
 		Student student = new Student(firstname, lastname, address, mobile_number, email, password);
 		
-		String message = "Student not added successfully";
+		String message = "Student not added successfully ❌";
 		try {
 			message = dao.addStudents(student);
 		} catch (StudentException e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println(message);
+		System.out.println(message+"✔");
 	}
 	// -------------------------------------------------------------------------------------
 
@@ -78,10 +78,10 @@ public class UserInterFace {
 		course.setDuration(duration);
 		course.setDescription(description);
 
-		String message = null;
+		String message = "Course has been not added successfully ❌";
 		try {
 			dao.addnewCourse(course);
-			message = "Course has been added successfully";
+			message = "Course has been added successfully ✔";
 		} catch (CourseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,7 +139,7 @@ public class UserInterFace {
 				System.out.println(e.getMessage());
 			}
 		}else {
-			System.out.println("Please Enter Correct Choice");
+			System.out.println("Please Enter Correct Choice ❗");
 		}
 		
 	}
