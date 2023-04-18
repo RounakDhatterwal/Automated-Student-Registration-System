@@ -17,28 +17,28 @@ This project is an automated student registration system implemented using Java 
 
 
 <h3>Roles for Administrator:</h3>
- Login to the system with a fixed username and password (username: admin, password: admin)
-| Add new courses to the system
-| Search for information about courses (by course name, duration range, and fee range)
-| Update details of courses
-| Create batches under a course
-| Search for information about batches (by batch name, by start date range, by end date range, by start and end date, by course name of the batch)
-| Update details of batches
-| View student details
-| View the student list of a batch
-| Consolidate the report batch-wise that contains the total students in every batch, and consolidate the report course-wise that contains the total batches and total -students in every course
-| Logout of the system
+1. Login to the system with a fixed username and password (username: admin, password: admin) <br>
+2.  Add new courses to the system<br>
+3. Search for information about courses (by course name, duration range, and fee range)<br>
+4. Update details of courses<br>
+5. Create batches under a course<br>
+6. Search for information about batches (by batch name, by start date range, by end date range, by start and end date, by course name of the      batch)<br>
+7. Update details of batches<br>
+8. View student details<br>
+9. View the student list of a batch<br>
+10. Consolidate the report batch-wise that contains the total students in every batch, and consolidate the report course-wise that contains the total batches and total -students in every course<br>
+11. Logout of the system<br>
 
 <h3>Roles for a Student:</h3>
-| Sign up for an account with their first name, last name, address, mobile number, email, and password
-| Sign in to the system with their email and password
-| Update personal details
-| Change their password (old password must be entered)
-| View the list of available courses
-| View the list of upcoming batches for each course along with available seats
-| Register themselves in a course and select a batch from the list of upcoming batches
-| Logout of the system
-| Delete their account
+1. Sign up for an account with their first name, last name, address, mobile number, email, and password<br>
+2. Sign in to the system with their email and password<br>
+3. Update personal details<br>
+4. Change their password (old password must be entered)<br>
+5. View the list of available courses<br>
+6. View the list of upcoming batches for each course along with available seats<br>
+7. Register themselves in a course and select a batch from the list of upcoming batches<br>
+8. Logout of the system<br>
+9. Delete their account<br>
 
 
 <h3>ER Diagram :</h3>
