@@ -21,6 +21,8 @@ import com.masai.model.Student;
 
 public class StudentsDaoImpl implements StudentsDao{
 
+	// add students 
+	
 	@Override
 	public String addStudents(Student student) throws StudentException {
 		String message = "Student data not entered correctly";
@@ -46,6 +48,7 @@ public class StudentsDaoImpl implements StudentsDao{
 		return message;
 	}
 	
+	// update student details this will work when we have signed in as a student
 	
 	@Override
 	public String updateStudent(String firstname, String lastname, String address, String mobile_number, String email,
@@ -82,6 +85,8 @@ public class StudentsDaoImpl implements StudentsDao{
 		
 		return message;
 	}
+	
+	// student signin it needs student username and password and password must be same as student has set during registration 
 
 	@Override
 	public String signIn(String username, String password) throws StudentException {
@@ -107,6 +112,8 @@ public class StudentsDaoImpl implements StudentsDao{
 		return message;
 	}
 	
+	// it updates password of student and it requires student previous password and new password to update
+	
 	@Override
 	public String changePassword(String password, String newpassword) {
 		String message  = "Password not updated sucessfully";
@@ -128,6 +135,7 @@ public class StudentsDaoImpl implements StudentsDao{
 		
 	}
 	
+	// this will all available course list 
 
 	@Override
 	public List<Course> available_course_list() throws CourseException {
@@ -147,6 +155,8 @@ public class StudentsDaoImpl implements StudentsDao{
 		
 		return list;
 	}
+	
+	// this will give all running batches in current time
 
 	@Override
 	public List<Batch> available_batches_list() throws BatchException {
@@ -170,6 +180,8 @@ public class StudentsDaoImpl implements StudentsDao{
 		
 		return list;
 	}
+	
+	// this delete student account with student firstname
 
 	@Override
 	public String deleteStudentAccount(String firstname) throws StudentException {
@@ -189,6 +201,8 @@ public class StudentsDaoImpl implements StudentsDao{
 		
 		return message;
 	}
+	
+	// it enroll student into particular course with course id and student roll 
 
 	@Override
 	public String enrollStudentInCourse(int roll, int cid) throws StudentException, CourseException {
