@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+// It is used to establish connection with the database
+
 public class DBUtil {
 	static String drivername;
 	static String url;

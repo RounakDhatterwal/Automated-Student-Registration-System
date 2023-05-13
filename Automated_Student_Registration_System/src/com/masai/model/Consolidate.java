@@ -1,5 +1,7 @@
 package com.masai.model;
 
+// it a model class for getting consolidated record
+
 public class Consolidate {
 	
 	private int st_id;

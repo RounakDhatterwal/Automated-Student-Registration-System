@@ -24,6 +24,8 @@ import com.masai.model.Consolidate;
 import com.masai.model.Course;
 import com.masai.model.Student;
 
+// Common Interface for Adminstrator and student
+
 public class UserInterFace {
 
 	

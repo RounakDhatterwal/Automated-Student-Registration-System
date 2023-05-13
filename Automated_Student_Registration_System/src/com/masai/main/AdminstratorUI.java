@@ -3,6 +3,9 @@ package com.masai.main;
 import java.net.UnknownServiceException;
 import java.util.Scanner;
 
+
+// user Interface for adminstrator 
+
 public class AdminstratorUI {
 	public static void adminUI() throws Exception {
 		System.out.println("💨💨💨💨💨💨💨💨💨💨💨💨💨💨");

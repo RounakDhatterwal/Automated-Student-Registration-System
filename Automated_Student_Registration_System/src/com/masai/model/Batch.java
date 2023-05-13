@@ -3,6 +3,8 @@ package com.masai.model;
 import java.time.LocalDate;
 import java.util.Date;
 
+// it a model class of batch
+
 public class Batch {
 	private String name;
 	private String startdate;

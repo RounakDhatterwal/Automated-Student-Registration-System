@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import com.masai.model.Student;
 
+// main user Interface class
+
 public class UI {
 	
 	public static int student_id ;
