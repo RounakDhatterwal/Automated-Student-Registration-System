@@ -3,7 +3,7 @@
 
 This project is an automated student registration system implemented using Java and the STS. It allows students to register for courses and provides administrators a interface for managing course and batch offerings and student registrations.
 
-
+#### Video Link - https://drive.google.com/drive/folders/1gwhX66pGzXSJ510V1SxzB8Ihh1EKjpcC?usp=share_link
 
 <h3>The tables includes the following entities:</h3>
 
