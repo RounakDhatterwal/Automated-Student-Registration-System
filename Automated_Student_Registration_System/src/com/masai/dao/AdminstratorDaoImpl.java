@@ -22,6 +22,8 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 
 	public static boolean flag = false;
 	
+	// this code checking the admin login credentials and here we have hard coded the username and password
+	
 	@Override
 	public String login(String username, String password) {
 		String message = "Wrong credentials";
@@ -33,6 +35,8 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 		
 		return message;
 	}
+	
+	// add new course method adds a new course into the available course 
 
 	@Override
 	public String addnewCourse(Course course) throws CourseException {
@@ -59,6 +63,8 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 		return null;
 	}
 
+	// here we can serach course details by any of the details - course name , time/duration , fee
+	
 	@Override
 	public List<Course> searchCourseDetails(String course_name, int time, int fee) throws CourseException {
 		List<Course> list = new ArrayList<>();
@@ -88,7 +94,8 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 	}
 	
 	
-
+	// In this we are updating course details with the help of the course id
+	
 	@Override
 	public String updateCourseDetails(int courseID, String name, int fee, int duration, String description) throws CourseException {
 		String message ="Course Not Updated Sucessfully";
@@ -113,6 +120,8 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 		
 		return message;
 	}
+	
+	// This method helps us to create a batch of particular course and we have to give batch details to add batch
 
 	@Override
 	public Batch createBatchUnderACoruse(Batch batch) throws BatchException {
@@ -139,6 +148,8 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 		
 		return ba;
 	}
+	
+	// searches Batch either with the name of the batch or start_date or end_date
 
 	@Override
 	public List<Batch> searchBatch(String batch_name, String start_date, String end_date) throws BatchException {
@@ -171,6 +182,8 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 		
 		return ba;
 	}
+	
+	// updates batch details with the help of batch id 
 
 	@Override
 	public String updateBatch(int batch_id, String batch_name, String start_date, String end_date, int capacity, int course_id) throws BatchException {
@@ -199,6 +212,8 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 		return message;
 	}
 
+	// view student details with the help of student id
+	
 	@Override
 	public List<Student> viewStudentDetails(int student_id) throws StudentException {
 		List<Student> list = new ArrayList<>();
@@ -226,6 +241,8 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 		
 		return list;
 	}
+	
+	// view all student list of a batch and it uses batch id to find all students
 
 	@Override
 	public List<String> studentListofBatch(int batch_id){
@@ -246,6 +263,8 @@ public class AdminstratorDaoImpl implements AdminstratorDao{
 		
 		return list;
 	}
+	
+	// it provide consolidated report of the student and batch and course -> it given coursse name and number of batches under under that course and number of students under each batch
 
 	@Override
 	public  List<Consolidate> getReport() {
