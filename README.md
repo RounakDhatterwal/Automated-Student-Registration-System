@@ -5,6 +5,8 @@ This project is an automated student registration system implemented using Java 
 
 #### Video Link - https://drive.google.com/drive/folders/1gwhX66pGzXSJ510V1SxzB8Ihh1EKjpcC?usp=share_link
 
+#### To Setup project locally first we have to import the sql and then we have to import our project under genral project section  
+
 <h3>The tables includes the following entities:</h3>
 
 <h4>Student:</h4> This table represents the students in the system. Each student has a unique ID, a first name, a last name, an address, a mobile number, an email address, a password, and a flag indicating whether the student is deleted or not.
