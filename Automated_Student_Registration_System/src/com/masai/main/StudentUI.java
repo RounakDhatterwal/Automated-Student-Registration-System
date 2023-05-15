@@ -2,6 +2,8 @@ package com.masai.main;
 
 import java.util.Scanner;
 
+// // user Interface for student
+
 public class StudentUI {
 	public static void studentUI() throws Exception {
 		System.out.println("---------------------->");

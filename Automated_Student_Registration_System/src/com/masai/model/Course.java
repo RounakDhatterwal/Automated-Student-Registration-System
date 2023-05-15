@@ -1,5 +1,7 @@
 package com.masai.model;
 
+// // it a model class of course
+
 public class Course {
 	private String name;
 	private int fee;
